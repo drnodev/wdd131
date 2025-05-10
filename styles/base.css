@@ -7,14 +7,14 @@
 
 body {
     font-family: "Roboto Slab", serif;
-    font-size: 1.3rem;
+    font-size: 1.1rem;
     font-weight: 200;
     font-style: normal;
 }
 
   
 h1 {
-	background-color: #1099e2;
+	background-color: #007acc;
 	padding: 1rem;
 	border: 1px solid rgb(0 0 0 / 10%);
 	font-size: 2rem;
@@ -53,7 +53,7 @@ main{
     
     margin: 0 auto;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: 1fr;
     gap: 2rem;
     padding: 1rem;
     max-width: 80%;
@@ -65,6 +65,17 @@ main{
     padding: 1rem;
     border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .me{
+    display: flex;
+    align-items: center;
+  }
+
+  .flag,.r2{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
   }
 
   h2 {
@@ -81,6 +92,7 @@ main{
     display: flex;
     flex-direction: column;
     gap: 0.9rem;
+    
   }
 
   footer {
@@ -91,42 +103,49 @@ main{
     color: #333;
   }
 
-  .d-2{
+
+  .me, .about{
     display: flex;
-  }
-  .d-2 p{
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-  }
-  .flag img{
-    transform: translate(50%, 0);
+    flex-direction: column;
+    gap: 1rem;
   }
 
-@media (min-width: 640px) {
-	nav ul {
+ul {
+    display: block;
+    list-style-type: none;
+}
+.dev li{
+    margin-top: 1rem;
+}
+
+li a{
+    text-decoration: none;
+}
+
+
+@media (min-width: 1500px) {
+    main{
+        grid-template-columns: 2fr 1fr;   
+    }
+    nav ul {
 		display: flex;
 	}
-
-	nav ul li {
+    nav ul li {
 		flex: 1 0 auto;
     }
-}
-
-@media (max-width:640px ) {
-    .card> img{
-        width: 300px !important;
-    }
-    .d-2{
+    .me img{float: left;}
+    .d2{
         display: flex;
-        flex-direction: column;
-      }
-      .d-2 p{
-        margin-top: 1rem;
-        margin-bottom: 0.5rem;
-        padding-left: 0;
-        padding-right: 0;
-      }
-      .flag img{
-        transform: translateX(1.5rem);
-      }
-}
+        gap: 2rem;
+    }
+    .d2 p{
+        padding: 0.5rem;
+    }
+    .r2{
+        display: flex;
+        flex-direction: row-reverse;
+        gap: 2rem;
+        padding: 1rem;
+    }
+    
+  }
