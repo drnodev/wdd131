@@ -324,13 +324,18 @@ document.addEventListener('DOMContentLoaded', () => {
         
     }
     try {
+        renderCart()
+    } catch (error) {
+        
+    }
+    try {
          
     images.forEach(src => {
         const img = document.createElement('img');
         img.width = '400'
         img.height = '400'
         img.src = src;
-        img.loading = 'lazy'; // Native lazy loading
+        img.loading = 'lazy'; 
         img.alt = 'Gallery image';
         galleryContainer.appendChild(img);
     });
@@ -350,6 +355,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="product-type">${product.type}</div>
           <div class="product-description">${product.description}</div>
           <div class="product-price">${product.price}</div>
+          <button onclick='addToCart(${JSON.stringify(product).replace(/'/g, "\\'")})'>Add to Cart</button>
         </div>
       `;
     });
@@ -424,3 +430,59 @@ function displayEvents(events) {
 
     displayEvents(filtered);
   }
+
+
+
+  function addToCart(product, quantity = 1) {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const existing = cart.find(p => p.name === product.name);
+
+    if (existing) {
+        existing.quantity += quantity;
+    } else {
+        cart.push({
+        ...product,
+        quantity: quantity
+        });
+    }
+    localStorage.setItem('cart', JSON.stringify(cart));
+}
+
+function hasCartItems() {
+  const cart = JSON.parse(localStorage.getItem('cart'));
+  return Array.isArray(cart) && cart.length > 0;
+}
+
+
+function renderCart() {
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+  const container = document.getElementById('cartList');
+  container.innerHTML = '';
+
+  if (cart.length === 0) {
+    container.innerHTML = `<p>Your cart is empty, you can add prodcuts on <a class="a-link" href="store.html">store</a> </p>`;
+    return;
+  }
+
+  cart.forEach((product, index) => {
+    container.innerHTML += `
+      <div class="cart-item">
+        <img src="${product.image}" alt="${product.name}" loading="lazy" />
+        <div class="cart-info">
+          <div><strong>${product.name}</strong></div>
+          <div>${product.description}</div>
+          <div>${product.price}</div>
+          <div>Quantity: ${product.quantity}</div>
+        </div>
+        <button class="cart-remove" onclick="removeFromCart(${index})">Remove</button>
+      </div>
+    `;
+  });
+}
+
+function removeFromCart(index) {
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+  cart.splice(index, 1);
+  localStorage.setItem('cart', JSON.stringify(cart));
+  renderCart();
+}
