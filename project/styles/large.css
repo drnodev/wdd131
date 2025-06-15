@@ -29,7 +29,7 @@
 
     li.active, .active a{
         background-color: var(--primary-color);
-        color: var(--background-color) !important;
+        color: #000 !important;
     }
 
     .navigation a {
